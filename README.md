@@ -104,3 +104,10 @@ Insiders-Agent/
     ├── tools.py          # Vector database tool wrappers
     └── vector_store.py   # ChromaDB ingestion and embedding logic
 ```
+
+---
+
+<div align="center">
+  <b>Built with ❤️ by Shreyas</b><br>
+  <i>Empowering the SRM Insider Community through AI</i>
+</div>
