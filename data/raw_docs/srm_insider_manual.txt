@@ -1,0 +1,170 @@
+SRM Insider Community
+Social Handles
+Instagram
+LinkedIn
+1. About the Club
+SRM Insider Community is a student-led initiative founded in early 2024 by a group of
+passionate individuals determined to bridge the gap between students and impactful
+resources. Run by a core team of SRM students across multiple domains, the club operates as
+a centralized hub for building digital tools, driving student engagement, and fostering
+innovation on campus. We have also built a strong digital presence through our official social
+media handles, achieving a remarkable reach of 51.9K in just 14 days. Over 100 students
+have shown interest in joining and contributing to the community. Our LinkedIn handle,
+SRM Insider, serves as our professional showcase for updates, launches, and team growth.
+The club has also attracted recognition from other student-led communities—D2D (Dorm to
+Dorm) recently proposed a collaboration for hosting joint workshops and events,
+acknowledging our shared vision of empowerment and innovation among students. Initially
+launched as an online platform, it has now grown into a vibrant and impactful community
+committed to supporting students through collaboration, creativity, and tech-forward
+thinking.
+2. Mission&Vision
+Mission:
+ To create purpose-driven platforms that solve real student problems.
+ To build a tight-knit, inclusive community driven by curiosity and collaboration.
+ To support students in personal and professional development through real-world
+projects and peer learning.
+ To establish a culture of continuous innovation and open access.
+ To guide students in pursuing development, helping them learn new skills through
+hands-on projects.
+ To build college-friendly, safe, and accessible tools usable across all SRM campuses.
+ To develop solutions capable of addressing challenges not just in SRM, but in broader
+real-world contexts.
+ To provide guidance and opportunities in placement preparation, soft skills, and real-
+world corporate exposure through internships and project-based learning.
+Vision
+To become SRM’s most impactful student-driven community—empowering students to
+build, connect, and innovate using the tools and opportunities we create. Our long-term goal
+is to develop products that solve real-world and college-specific problems. We aim to
+digitalize SRM in every possible way, creating tools and platforms that simplify student life
+across all campuses. Our vision includes expanding our presence to every SRM campus with
+a dedicated campus ambassador network and scaling our community to build as many
+effective tools as possible.
+3. Core Values
+ Innovation: We encourage creativity and constantly experiment with new ideas.
+ Collaboration: We work together across domains, valuing every voice and
+contribution.
+ Inclusivity: We welcome all students—regardless of background or domain.
+ Transparency: We share our work, progress, and processes openly.
+ Community Impact: Every project we create is designed to serve the student
+community.
+4. Key Focus Areas / Domains
+ Tech Development: Building student-centric platforms and tools.
+ UI/UX & Design: Designing user-first interfaces for accessibility and engagement.
+ Marketing & Community: Managing communications, outreach, and user growth.
+ Social Media Management: Handling branding, engagement, and digital presence
+across platforms.
+ Content & Strategy: Creating engaging content and maintaining alignment with
+student needs.
+ Operations & Events: Organizing meetups, onboarding, and project execution.
+ Real-World Software Applications: Developing scalable and impactful software
+projects that address genuine user needs.
+ Hardware & IoT Projects: Exploring and building innovative hardware-based
+solutions and prototypes.
+ Career Development: Supporting students with placement prep, soft skills training,
+corporate internship guidance, and mentorship.
+ Open Innovation & Collaboration: Partnering with other communities, clubs, and
+developers to co-create solutions.
+ Freelance Support: This support will help the students gain experience in corporate
+life and also gain good internship opportunities.
+5. Flagship Projects & Achievements
+Here’s a quick look at the key projects built by our team, each designed to solve real student
+problems in simple, effective ways:
+ SRM Roomie
+A roommate-finding platform for freshers to connect based on preferences like location,
+stream, and hostel type.
+Link-https://srmroomie.srminsider.live/signin
+ Vaultify
+A secure place to store your academic documents like mark sheets, certificates, and ID
+cards — all in one click.
+Link- SIC || Vaultify
+ SRM Seat Finder
+Helping students predict their branch and seat allocation chances using smart filters and
+previous year data.
+Link- SRMIST SEAT FINDER
+ Telegram Bot
+A fast, easy-to-use bot that helps students get access to forms, tools, and updates directly
+on Telegram.
+Link- Telegram: Launch @srm_academia_bot
+ SRM Seat Finder
+Helping students find their lost items in the campus of SRM University and this
+application is for all the campuses.
+Link- SRMIST Lost And Found Portal
+6. Upcoming Initiatives
+ SRM Insider Official Website: A techy, interactive portfolio showcasing all tools,
+team, events, and updates.
+ SRM E-Library: A centralized platform for accessing notes, previous year papers,
+and academic resources contributed by students.
+ Team Finder: A smart tool to help students find like-minded peers for hackathons,
+group projects, or startups.
+ Event Booking System: A streamlined portal for students to view, register, and
+manage entries for college events, workshops, and fests.
+ Java-SRM Food Court Digitalization: A web and app-based solution allowing
+students to order from any restaurant in Java; users will get notifications when their
+food is ready to avoid long queues and crowding.
+7. Club Structure & Roles
+ Founder & President
+o Name: Anuj Tiwari
+Reg No: RA2211031010052
+Year: 4th
+LinkedIn:Anuj Tiwari
+ Core Team (Insiders):
+o Name: Kshitiz Kamal
+Reg No: RA2211053010057
+Year: 4th
+LinkedIn:Kshitiz Kamal
+o Name: Ayush Dwibedi
+Reg No: RA2411003012468
+Year: 2nd
+LinkedIn:Ayush Dwibedi
+o Name: Arihant Jain
+Reg No: RA2311028010118
+Year: 3rd
+LinkedIn:Arihant Jain
+o Name: Pulkit Gosain
+Reg No: RA2311003011436
+Year: 3rd
+LinkedIn:Pulkit Gosain
+o Name: Aditya Khandelwal
+Reg No: RA2311026010462
+Year: 3rd
+LinkedIn:Aditya Khandelwal
+o Name: Yash Phoghat
+Reg No: RA2311003011290
+Year: 3rd
+LinkedIn:Yash Phoghat
+o Name: Krishna Keshab Banik
+Reg No: RA2411026011003
+Year: 2nd
+LinkedIn:Krishna Keshab Banik
+ Domain Teams: Project-based flexible teams under core supervision, categorized
+into the following key domains:
+o Product & Development: Building software tools and managing tech
+infrastructure.
+o UI/UX & Visual Design: Designing user interfaces, product layouts, and
+branding visuals.
+o Media & Marketing: Handling social media, campaigns, and community
+growth.
+o Content & Communication: Creating written content, microcopy,
+documentation, and messaging.
+o Events & Operations: Planning, executing, and managing events and internal
+operations.
+o Research & Outreach: Conducting feedback loops, outreach, collaborations,
+and innovation scouting.
+ Mentorship Circle: Seniors and alumni guiding ongoing projects.
+8. Membership Info
+ Eligibility: Open to all SRM students from any year or department.
+ Selection: Application + Task Round + Short Interview + Background Check.
+ Member Benefits:
+o Real project exposure
+o Certificate & portfolio-worthy experience
+o Networking & mentorship opportunities
+o Priority access to Insider events and launches
+o Career guidance and placement support from peers and mentors
+9. Collaboration Opportunities
+We are open to:
+ Inter-club collaborations for projects, outreach, and events
+ Mentorships with alumni or external experts
+ Sponsorships to support and scale our tools
+ Guest sessions or workshops from domain experts
+Our goal is to build meaningful partnerships that amplify student potential and drive real-
+world impact.
