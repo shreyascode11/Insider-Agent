@@ -66,11 +66,11 @@ LLM_PROVIDER=groq
 
 ## 🎮 Usage
 **1. Ingest Data into the Vector Database:**
-Before querying the agent, you need to populate the local vector store with the club's raw documents.
+Before querying the agent, you need to populate the local vector store with the club's raw documents. Place any `.txt` or `.md` files into the `data/raw_docs/` folder, then run:
 ```bash
-python test_pipeline.py
+python ingest.py
 ```
-*This script processes the sample club data, generates embeddings, and saves them to the local `data/vector_store/` directory.*
+*This script automatically reads your files, generates embeddings, and saves them to the persistent local `data/vector_store/` directory.*
 
 **2. Run the Interactive Terminal (Testing):**
 You can chat with the agent directly in your terminal to observe its thought process and node evaluation:
@@ -92,7 +92,7 @@ Insiders-Agent/
 ├── app.py                # Streamlit web interface
 ├── main.py               # Terminal-based execution loop
 ├── requirements.txt      # Project dependencies
-├── test_pipeline.py      # Script to ingest sample data & test vector DB
+├── ingest.py             # Script to automatically load and vectorize raw docs
 ├── pyproject.toml        # Project metadata
 ├── data/
 │   ├── raw_docs/         # Source markdown/PDF files (ignored by git)
