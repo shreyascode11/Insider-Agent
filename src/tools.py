@@ -2,7 +2,9 @@ from langchain_core.tools import tool
 from src.vector_store import ClubVectorStore
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+from src.config import Config
+
+embeddings = HuggingFaceEmbeddings(model_name=Config.EMBEDDING_MODEL_NAME)
 vector_store = ClubVectorStore(embedding_model=embeddings)
 
 @tool
@@ -13,7 +15,7 @@ def search_club_policies(query: str) -> str:
     """
     print(f"\n🛠️ [Agent Tool Execution] Searching internal docs for: '{query}'")
     
-    results = vector_store.similarity_search(query, k=2)
+    results = vector_store.similarity_search(query, k=5)
     
     if not results:
         print("⚠️ [Tool DB Status] No matching text blocks found in ChromaDB.")
