@@ -84,6 +84,12 @@ For the complete user experience, start the Streamlit application:
 streamlit run app.py
 ```
 
+## ☁️ Cloud Deployment (Streamlit Cloud)
+Deploying to Streamlit Community Cloud requires specific backend optimizations to bypass cloud environment restrictions. The codebase automatically handles these:
+1. **Dynamic Ephemeral Database:** On Linux/Cloud servers, the `vector_store.py` automatically falls back to an in-memory `EphemeralClient()`. This prevents Streamlit Cloud's outdated `libsqlite3.so` dependency from crashing the Rust-based ChromaDB migrations with `InternalError` or `no such table: tenants` errors.
+2. **SQLite Override:** For basic cloud compatibility, `app.py` forces the usage of `pysqlite3-binary` at boot.
+3. **Thread-Safe Caching:** `st.cache_resource` is heavily utilized to ensure `load_all_documents()` and the `InsidersAgent` are initialized exactly once, preventing concurrent thread-locking database races.
+
 ## 📁 Project Structure
 ```text
 Insiders-Agent/
