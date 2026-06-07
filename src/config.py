@@ -10,8 +10,12 @@ class Config:
     # Automatically resolve the root directory (insiders_agent/)
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     
-    # Data paths
-    VECTOR_STORE_PATH = os.path.join(BASE_DIR, "data", "vector_store")
+    import sys
+    # Use /tmp for Streamlit Cloud (Linux) to avoid SQLite locking and read-only filesystem issues
+    if sys.platform.startswith("linux"):
+        VECTOR_STORE_PATH = "/tmp/insiders_vector_store"
+    else:
+        VECTOR_STORE_PATH = os.path.join(BASE_DIR, "data", "vector_store")
     RAW_DOCS_PATH = os.path.join(BASE_DIR, "data", "raw_docs")
     
     # --- Model Configuration ---

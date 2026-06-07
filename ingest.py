@@ -3,12 +3,13 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from src.vector_store import ClubVectorStore
 from src.config import Config
 
+from src.tools import get_vector_store
+
 def load_all_documents():
     print("🚀 Initializing Knowledge Ingestion Pipeline...")
     
     # Initialize the embedding model and vector store
-    embeddings = HuggingFaceEmbeddings(model_name=Config.EMBEDDING_MODEL_NAME)
-    store = ClubVectorStore(embedding_model=embeddings)
+    store = get_vector_store()
     
     # Check if the database is already populated to prevent duplicating chunks on every new Streamlit session
     if store.collection.count() > 0:
