@@ -25,9 +25,14 @@ class ClubVectorStore:
     def _initialize_store(self) -> None:
         """Initializes the persistent ChromaDB client and fetches/creates the collection."""
         try:
-            os.makedirs(self.persist_directory, exist_ok=True)
-            # Create a persistent local database client
-            self.client = chromadb.PersistentClient(path=self.persist_directory)
+            import sys
+            if sys.platform.startswith("linux"):
+                # Use in-memory client on Streamlit Cloud to bypass all SQLite/Rust filesystem restrictions
+                self.client = chromadb.EphemeralClient()
+            else:
+                os.makedirs(self.persist_directory, exist_ok=True)
+                # Create a persistent local database client
+                self.client = chromadb.PersistentClient(path=self.persist_directory)
             
             # Fetch or create the specific collection for club data
             self.collection = self.client.get_or_create_collection(
