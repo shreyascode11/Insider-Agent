@@ -1,6 +1,15 @@
 import streamlit as st
+
+# MUST RUN BEFORE ANY CHROMADB IMPORT TO FIX STREAMLIT CLOUD SQLITE ISSUE
+try:
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except ImportError:
+    pass
+
 from src.agent import InsidersAgent
-from ingest import load_all_documents  
+from ingest import load_all_documents
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -13,15 +22,18 @@ st.title("🚀 Insiders Club Orchestrator")
 st.markdown("Welcome to the official AI Assistant for the Insiders Club. Ask me about roles, deadlines, and club policies!")
 
 # --- Initialize Agent and Session State ---
-# We store the agent in session state so it doesn't reload on every button click
+# Use Streamlit's caching to safely initialize the database globally across all users (prevents locking bugs)
+@st.cache_resource
+def initialize_system():
+    # 1. Force the cloud server to ingest the raw text files and build a fresh database
+    load_all_documents()
+    # 2. Boot up the agent
+    return InsidersAgent()
+
 if "agent" not in st.session_state:
     with st.spinner("Initializing AI Engine and building memory bank..."):
         try:
-            # 1. Force the cloud server to ingest the raw text files and build a fresh database
-            load_all_documents()
-            
-            # 2. Boot up the agent
-            st.session_state.agent = InsidersAgent()
+            st.session_state.agent = initialize_system()
             st.success("System Online.")
         except Exception as e:
             st.error(f"Failed to load agent: {e}")
