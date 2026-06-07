@@ -7,10 +7,5 @@ env/
 __pycache__/
 *.pyc
 
-# Database and Raw Data
-data/
-data/vector_store/
-data/raw_docs/
-
 # Mac OS System Files
 .DS_Store
