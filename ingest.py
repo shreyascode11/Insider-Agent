@@ -6,13 +6,18 @@ from src.config import Config
 def load_all_documents():
     print("🚀 Initializing Knowledge Ingestion Pipeline...")
     
-    # 1. Initialize the embedding model and vector store
+    # Initialize the embedding model and vector store
     embeddings = HuggingFaceEmbeddings(model_name=Config.EMBEDDING_MODEL_NAME)
     store = ClubVectorStore(embedding_model=embeddings)
     
-    # 2. Locate the raw documents folder
+    # Check if the database is already populated to prevent duplicating chunks on every new Streamlit session
+    if store.collection.count() > 0:
+        print("✅ Database already populated. Skipping duplicate ingestion.")
+        return
+        
+    # Locate the raw documents folder
     docs_dir = Config.RAW_DOCS_PATH
-    os.makedirs(docs_dir, exist_ok=True) # Ensure folder exists
+    os.makedirs(docs_dir, exist_ok=True) # Ensures the folder exists
     
     # Find all text and markdown files
     files = [f for f in os.listdir(docs_dir) if f.endswith('.txt') or f.endswith('.md')]
