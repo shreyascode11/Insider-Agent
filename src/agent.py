@@ -101,7 +101,7 @@ class InsidersAgent:
         # Compile graph structure into an executable runner module
         return workflow.compile()
 
-    def invoke(self, query: str) -> str:
+    def invoke(self, chat_history: list) -> str:
         """Public execution method wrapper to invoke the compiled agent engine."""
         system_instruction = SystemMessage(
             content=(
@@ -115,11 +115,18 @@ class InsidersAgent:
             )
         )
         
+        # Start the message chain with the system prompt
+        lc_messages = [system_instruction]
+        
+        # Loop through the Streamlit UI history and map it to LangChain objects
+        for msg in chat_history:
+            if msg["role"] == "user":
+                lc_messages.append(HumanMessage(content=msg["content"]))
+            elif msg["role"] == "assistant":
+                lc_messages.append(AIMessage(content=msg["content"]))
+        
         inputs = {
-            "messages": [
-                system_instruction,
-                HumanMessage(content=query)
-            ]
+            "messages": lc_messages
         }
         
         output_state = self.graph.invoke(inputs)
