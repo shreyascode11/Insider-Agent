@@ -53,8 +53,8 @@ class ClubVectorStore:
         """
         # Using a specialized text splitter to preserve paragraph context
         splitter = RecursiveCharacterTextSplitter(
-            chunk_size=500,
-            chunk_overlap=50,
+            chunk_size=1500,
+            chunk_overlap=200,
             length_function=len,
             separators=["\n\n", "\n", " ", ""]
         )

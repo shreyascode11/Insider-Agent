@@ -6,4 +6,3 @@ sentence-transformers
 mcp
 python-dotenv
 streamlit
-pysqlite3-binary

@@ -102,11 +102,16 @@ manage entries for college events, workshops, and fests.
 students to order from any restaurant in Java; users will get notifications when their
 food is ready to avoid long queues and crowding.
 7. Club Structure & Roles
- Founder & President
+ Founder
 o Name: Anuj Tiwari
 Reg No: RA2211031010052
 Year: 4th
 LinkedIn:Anuj Tiwari
+ President
+o Name: Arihant Jain
+Reg No: RA2311028010118
+Year: 3rd
+LinkedIn:Arihant Jain
  Core Team (Insiders):
 o Name: Kshitiz Kamal
 Reg No: RA2211053010057
@@ -136,6 +141,10 @@ o Name: Krishna Keshab Banik
 Reg No: RA2411026011003
 Year: 2nd
 LinkedIn:Krishna Keshab Banik
+o Name: Shreyas
+  Reg No: RA2511028010115
+  Year: 1st 
+  Role: Web Development Member
  Domain Teams: Project-based flexible teams under core supervision, categorized
 into the following key domains:
 o Product & Development: Building software tools and managing tech
@@ -152,14 +161,20 @@ o Research & Outreach: Conducting feedback loops, outreach, collaborations,
 and innovation scouting.
  Mentorship Circle: Seniors and alumni guiding ongoing projects.
 8. Membership Info
- Eligibility: Open to all SRM students from any year or department.
- Selection: Application + Task Round + Short Interview + Background Check.
- Member Benefits:
-o Real project exposure
-o Certificate & portfolio-worthy experience
-o Networking & mentorship opportunities
-o Priority access to Insider events and launches
-o Career guidance and placement support from peers and mentors
+Eligibility: Open to all SRM students from any year or department.
+
+Expected Time Commitment: 4-6 hours per week depending on the active project lifecycle.
+
+Selection: Application + Task Round + Short Interview + Background Check.
+
+Member Benefits:
+
+*Real project exposure
+* Certificate & portfolio-worthy experience
+* Networking & mentorship opportunities
+* Priority access to Insider events and launches
+*Career guidance and placement support from peers and mentors
+
 9. Collaboration Opportunities
 We are open to:
  Inter-club collaborations for projects, outreach, and events
@@ -168,3 +183,5 @@ We are open to:
  Guest sessions or workshops from domain experts
 Our goal is to build meaningful partnerships that amplify student potential and drive real-
 world impact.
+
+Documentation & AI Infrastructure maintained by Shreyas.
