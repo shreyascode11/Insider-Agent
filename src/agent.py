@@ -20,18 +20,29 @@ class InsidersAgent:
     """Orchestrates the LangGraph execution flow for the Insiders Club Assistant."""
     
     def __init__(self):
-        # Initializing Groq llama3 model
-        if not Config.GROQ_API_KEY:
-            raise ValueError("❌ GROQ_API_KEY is missing from your configuration or .env file.")
+        if Config.USE_LOCAL_LLM:
+            from langchain_ollama import ChatOllama
+            print("🚀 Initializing local Ollama model (llama3) with fallbacks (qwen2.5, phi3)...")
+            primary_model = ChatOllama(model="llama3", temperature=0.1)
+            fallback_1 = ChatOllama(model="qwen2.5", temperature=0.1)
+            fallback_2 = ChatOllama(model="phi3", temperature=0.1)
             
-        self.model = ChatGroq(
-            groq_api_key=Config.GROQ_API_KEY,
-            model_name="llama-3.3-70b-versatile",
-            temperature=0.1  # Very low temperature to prevent hallucinations
-        )
-        
-        # Binding the custom RAG tools directly to the Groq model
-        self.model_with_tools = self.model.bind_tools(AGENT_TOOLS)
+            self.model = primary_model
+            self.model_with_tools = primary_model.bind_tools(AGENT_TOOLS).with_fallbacks([
+                fallback_1.bind_tools(AGENT_TOOLS),
+                fallback_2.bind_tools(AGENT_TOOLS)
+            ])
+        else:
+            # Initializing Groq model
+            if not Config.GROQ_API_KEY:
+                raise ValueError("❌ GROQ_API_KEY is missing from your configuration or .env file.")
+                
+            self.model = ChatGroq(
+                groq_api_key=Config.GROQ_API_KEY,
+                model_name="llama-3.1-8b-instant",
+                temperature=0.1  # Very low temperature to prevent hallucinations
+            )
+            self.model_with_tools = self.model.bind_tools(AGENT_TOOLS)
         
         # Compiling the graph workflow architecture
         self.graph = self._build_workflow()

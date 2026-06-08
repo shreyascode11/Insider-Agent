@@ -1,39 +1,72 @@
-# 🚀 Insiders Club Agentic Orchestrator
-> **A high-speed, stateful AI agent for intelligent policy and document retrieval.**
+# 🚀 SRM Insiders Agentic RAG System
 
-## 📖 Overview
-The **Insiders Club Agentic Orchestrator** is an advanced Agentic RAG (Retrieval-Augmented Generation) system built to serve as the official AI Assistant for the Insiders Club. It effortlessly reasons through user queries regarding club policies, roles, and deadlines. By leveraging a stateful agent graph and a local vector database, the agent dynamically fetches factual context to deliver highly accurate, hallucination-free answers. 
+> **An intelligent, stateful Retrieval-Augmented Generation (RAG) assistant for the SRM Insiders Club.**
+
+The **SRM Insiders Agent** is an advanced AI assistant designed to provide club members with precise, factual answers regarding club policies, roles, and deadlines. Built with LangGraph, it queries a centralized database of official club manuals to guarantee accurate and hallucination-free responses.
 
 ## ✨ Key Features
-- **Stateful Reasoning:** Built with LangGraph to maintain conversational memory and execute complex tool-calling loops.
-- **Lightning-Fast Inference:** Powered by Groq and the massive `llama-3.3-70b-versatile` model for incredibly fast and precise responses.
-- **Local Vector Search:** Uses a persistent ChromaDB instance paired with HuggingFace embeddings (`all-MiniLM-L6-v2`) for entirely local, cost-free document indexing.
-- **Anti-Hallucination Guardrails:** Strict system prompts and tool constraints guarantee that the AI only answers based on official documentation.
-- **Modern Web UI:** An intuitive, chat-based interface built with Streamlit for seamless member interaction.
+- **Strict Factual Accuracy:** Utilizes local vector search (ChromaDB) to retrieve exact context from club manuals before answering.
+- **Dual Deployment Architecture:**
+  - **☁️ Cloud Mode (Groq):** Lightning-fast inference via `llama-3.1-8b-instant`, optimized for scalable deployment on Streamlit Community Cloud.
+  - **💻 Local Mode (Ollama):** 100% offline local inference for maximum privacy, utilizing `llama3` with automated fallbacks to `qwen2.5` and `phi3`.
+- **Stateful Memory:** Maintains conversational context using LangGraph's state machine to handle complex, multi-turn follow-up questions.
+- **Modern UI:** Clean, interactive chat interface built on Streamlit.
 
-## 🧠 Architecture
-The system operates on an Agentic RAG architecture powered by **LangGraph**:
-1. **Query Ingestion:** The user asks a question via the Streamlit UI or Terminal loop.
-2. **Stateful Graph Evaluation:** The LangGraph agent receives the query along with the conversation history.
-3. **Tool Invocation:** If the agent identifies that it needs factual information, it calls the `search_club_policies` tool.
-4. **Vector Retrieval:** The tool converts the query into an embedding, searches the local ChromaDB, and returns the top matching context blocks.
-5. **Final Generation:** The LLM synthesizes the retrieved documents to provide a precise answer, terminating the loop immediately to prevent hallucination.
+---
 
-## 🛠️ Tech Stack
-- **Core Orchestration:** [LangChain](https://langchain.com/) & [LangGraph](https://langchain.com/langgraph)
-- **LLM Inference:** [Groq API](https://groq.com/) (`llama-3.3-70b-versatile`)
-- **Vector Database:** [ChromaDB](https://www.trychroma.com/)
-- **Embeddings:** HuggingFace (`all-MiniLM-L6-v2`) via `sentence-transformers`
-- **Frontend App:** [Streamlit](https://streamlit.io/)
-- **Package Management:** `uv` / `pip`
+## 📊 System Architecture & Workflows
 
-## ⚙️ Prerequisites
-Before setting up the project, ensure you have:
-- Python 3.13 or higher installed.
-- A **Groq API Key**. You can obtain a free API key by signing up at the [Groq Console](https://console.groq.com/).
+### High-Level System Architecture
+The system is designed to dynamically route between cloud and local LLMs while relying on a centralized local vector database for factual grounding.
+
+```mermaid
+flowchart TD
+    User([Club Member]) -->|Ask Question| Streamlit[Streamlit Chat UI]
+    Streamlit -->|Updates State| LangGraph[LangGraph State Machine]
+    
+    subgraph "Execution Layer"
+        LangGraph -->|USE_LOCAL_LLM=False| Groq[Groq API: Llama-3.1]
+        LangGraph -->|USE_LOCAL_LLM=True| Local[Ollama: Llama3 / Qwen2.5 / Phi3]
+    end
+    
+    subgraph "Knowledge Base Retrieval"
+        Groq -.->|Calls Search Tool| RAG[search_club_policies]
+        Local -.->|Calls Search Tool| RAG
+        RAG -->|Semantic Query| Chroma[(ChromaDB)]
+        Chroma -->|Returns Top-K Docs| RAG
+    end
+    
+    RAG -.->|Context Injected| LangGraph
+    LangGraph -->|Generates Answer| Streamlit
+```
+
+### LangGraph State Machine Loop
+The core intelligence of the agent operates on a cyclical node-graph. It continuously evaluates whether it has enough information to answer the user, or if it needs to trigger a database search.
+
+```mermaid
+stateDiagram-v2
+    [*] --> agent_brain
+    
+    agent_brain --> _should_continue : Evaluate Next Step
+    
+    state _should_continue {
+        direction LR
+        Need_Information --> execute_tools
+        Has_Answer --> [*]
+    }
+    
+    execute_tools --> agent_brain : Return Document Context
+```
+
+---
+
+## 🛠️ System Requirements
+- Python 3.13 or higher
+- A free **Groq API Key** (for cloud inference). Obtainable at the [Groq Console](https://console.groq.com/).
+
+---
 
 ## 🚀 Installation & Setup
-Follow these steps to clone and configure the project locally:
 
 **1. Clone the repository:**
 ```bash
@@ -41,75 +74,63 @@ git clone https://github.com/shreyascode11/Insider-Agent.git
 cd Insider-Agent
 ```
 
-**2. Create and activate a virtual environment (Optional but recommended):**
+**2. Install dependencies:**
+We recommend using `uv` for significantly faster dependency resolution.
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # On macOS/Linux
-# .venv\Scripts\activate   # On Windows
+uv sync 
+# Alternatively: pip install -r requirements.txt
 ```
 
-**3. Install dependencies:**
+**3. Ingest your knowledge base:**
+Place your club's official documentation (`.txt` or `.md` files) into the `data/raw_docs/` directory. Then, generate the vector embeddings:
 ```bash
-# If using uv (recommended for speed)
-uv pip install -r requirements.txt
-
-# Or using standard pip
-pip install -r requirements.txt
+uv run python ingest.py
 ```
+*This will process the documents and build the persistent ChromaDB vector store locally.*
 
-**4. Set up environment variables:**
-Create a `.env` file in the root directory and add your Groq API key:
+---
+
+## 🎮 Execution Modes
+
+### Mode 1: Cloud Deployment (Recommended for Production)
+This mode leverages Groq's APIs for near-instantaneous response generation, making it the ideal choice for hosting a public URL for club members.
+
+1. Create a `.env` file in the root directory and add your API key:
 ```env
-GROQ_API_KEY=your_groq_api_key_here
-LLM_PROVIDER=groq
+GROQ_API_KEY=gsk_your_api_key_goes_here
 ```
-
-## 🎮 Usage
-**1. Ingest Data into the Vector Database:**
-Before querying the agent, you need to populate the local vector store with the club's raw documents. Place any `.txt` or `.md` files into the `data/raw_docs/` folder, then run:
+2. Launch the Streamlit server:
 ```bash
-python ingest.py
+uv run streamlit run app.py
 ```
-*This script automatically reads your files, generates embeddings, and saves them to the persistent local `data/vector_store/` directory.*
 
-**2. Run the Interactive Terminal (Testing):**
-You can chat with the agent directly in your terminal to observe its thought process and node evaluation:
+### Mode 2: Local Offline Inference (Ollama)
+For offline development and maximum privacy, you can run the models entirely on your local machine.
+
+1. Ensure the Ollama daemon is running, then pull the necessary models:
 ```bash
-python main.py
+ollama pull llama3    # Primary Model
+ollama pull qwen2.5   # Fallback 1
+ollama pull phi3      # Fallback 2
 ```
-
-**3. Launch the Web UI:**
-For the complete user experience, start the Streamlit application:
+2. Launch the server with the local environment flag enabled:
 ```bash
-streamlit run app.py
+USE_LOCAL_LLM=True uv run streamlit run app.py
 ```
 
-## ☁️ Cloud Deployment (Streamlit Cloud)
-Deploying to Streamlit Community Cloud requires specific backend optimizations to bypass cloud environment restrictions. The codebase automatically handles these:
-1. **Dynamic Ephemeral Database:** On Linux/Cloud servers, the `vector_store.py` automatically falls back to an in-memory `EphemeralClient()`. This prevents Streamlit Cloud's outdated `libsqlite3.so` dependency from crashing the Rust-based ChromaDB migrations with `InternalError` or `no such table: tenants` errors.
-2. **SQLite Override:** For basic cloud compatibility, `app.py` forces the usage of `pysqlite3-binary` at boot.
-3. **Thread-Safe Caching:** `st.cache_resource` is heavily utilized to ensure `load_all_documents()` and the `InsidersAgent` are initialized exactly once, preventing concurrent thread-locking database races.
+---
 
-## 📁 Project Structure
-```text
-Insiders-Agent/
-├── .env                  # Environment variables (ignored by git)
-├── .gitignore            # Git ignore rules
-├── app.py                # Streamlit web interface
-├── main.py               # Terminal-based execution loop
-├── requirements.txt      # Project dependencies
-├── ingest.py             # Script to automatically load and vectorize raw docs
-├── pyproject.toml        # Project metadata
-├── data/
-│   ├── raw_docs/         # Source markdown/PDF files (ignored by git)
-│   └── vector_store/     # Persistent ChromaDB files (ignored by git)
-└── src/
-    ├── __init__.py
-    ├── agent.py          # Core LangGraph state machine (InsidersAgent)
-    ├── config.py         # Centralized configuration management
-    ├── tools.py          # Vector database tool wrappers
-    └── vector_store.py   # ChromaDB ingestion and embedding logic
+## ☁️ Deploying to Streamlit Community Cloud
+Deploying this application online for your club members is completely free and requires zero infrastructure maintenance. 
+
+1. Push your configured repository to GitHub.
+2. Navigate to [share.streamlit.io](https://share.streamlit.io/) and click **New app**.
+3. Select this repository and point the main file path to `app.py`.
+4. Open the **Advanced Settings -> Secrets** menu and insert your Groq API Key:
+```toml
+GROQ_API_KEY = "gsk_your_api_key_here"
 ```
+5. Click **Deploy**. The environment markers in `pyproject.toml` will automatically handle Linux compatibility constraints, yielding a fully functional public web app.
 
 ---
 

@@ -22,9 +22,10 @@ class Config:
     # Using HuggingFace 
     EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2" 
     
+    USE_LOCAL_LLM = os.getenv("USE_LOCAL_LLM", "False").lower() in ("true", "1", "t", "yes")
     LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq") 
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    GROQ_API_KEY = os.getenv("GROQ_API_KEY") 
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
     
     @classmethod
     def validate_keys(cls):

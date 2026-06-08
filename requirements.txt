@@ -6,3 +6,5 @@ sentence-transformers
 mcp
 python-dotenv
 streamlit
+langchain-ollama
+pysqlite3-binary; sys_platform == 'linux'
