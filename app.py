@@ -24,7 +24,7 @@ st.markdown("Welcome to the official AI Assistant for the Insiders Club. Ask me 
 # --- Initialize Agent and Session State ---
 # Use Streamlit's caching to safely initialize the database globally across all users (prevents locking bugs)
 @st.cache_resource
-def initialize_system():
+def initialize_system_v2():
     # 1. Force the cloud server to ingest the raw text files and build a fresh database
     load_all_documents()
     # 2. Boot up the agent
@@ -33,7 +33,7 @@ def initialize_system():
 if "agent" not in st.session_state:
     with st.spinner("Initializing AI Engine and building memory bank..."):
         try:
-            st.session_state.agent = initialize_system()
+            st.session_state.agent = initialize_system_v2()
             st.success("System Online.")
         except Exception as e:
             st.error(f"Failed to load agent: {e}")
